@@ -20,7 +20,7 @@ export default function Navbar() {
   if (!user) return null
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-slate-800 shadow-[0_-1px_3px_rgba(0,0,0,0.05)] md:shadow-[0_1px_3px_rgba(0,0,0,0.05)] md:top-0 md:bottom-auto">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-slate-800 md:top-0 md:bottom-auto">
       <div className="max-w-3xl mx-auto px-4">
         <div className="flex items-center justify-between md:h-16">
           <NavLink to="/" className="hidden md:flex items-center gap-2 text-lg font-semibold text-indigo-600 dark:text-indigo-400">
