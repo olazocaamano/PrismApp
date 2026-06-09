@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import {
   auth,
-  googleProvider,
   signInWithPopup,
+  googleProvider,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
@@ -12,6 +12,8 @@ import {
   doc,
   db,
 } from '../lib/firebase'
+import { Capacitor } from '@capacitor/core'
+import { loginWithGoogleNative, initSocialLogin, createUserProfile } from '../lib/socialLogin'
 
 const AuthContext = createContext()
 
@@ -20,6 +22,13 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    const init = async () => {
+      if (Capacitor.getPlatform() !== 'web') {
+        await initSocialLogin()
+      }
+    }
+    init()
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user)
       setLoading(false)
@@ -48,21 +57,13 @@ export function AuthProvider({ children }) {
   }
 
   const loginWithGoogle = async () => {
-    const result = await signInWithPopup(auth, googleProvider)
-    try {
-      const userRef = doc(db, 'users', result.user.uid)
-      const userSnap = await getDoc(userRef)
-      if (!userSnap.exists()) {
-        await setDoc(userRef, {
-          displayName: result.user.displayName,
-          email: result.user.email,
-          createdAt: new Date().toISOString(),
-          preferences: { language: 'es', theme: 'light' },
-        })
-      }
-    } catch {
-      console.warn('Firestore no disponible, usuario autenticado igualmente')
+    let result
+    if (Capacitor.getPlatform() === 'web') {
+      result = await signInWithPopup(auth, googleProvider)
+    } else {
+      result = await loginWithGoogleNative()
     }
+    await createUserProfile(result)
     return result
   }
 

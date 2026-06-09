@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "897412564904",
+    "project_id": "prismapp-8b203",
+    "storage_bucket": "prismapp-8b203.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:897412564904:android:848b4297466160cf59bf9d",
+        "android_client_info": {
+          "package_name": "com.prismapp.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "897412564904-rha2l7fkifcdj0tstkc3db90ssmv5kdi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeUIiILngvXl0rHsJlRxJNgfbSacel3ug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "897412564904-rha2l7fkifcdj0tstkc3db90ssmv5kdi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

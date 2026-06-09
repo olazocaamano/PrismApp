@@ -7,6 +7,7 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  signInWithCredential,
 } from 'firebase/auth'
 import {
   getFirestore,
@@ -43,7 +44,9 @@ export {
   auth,
   db,
   googleProvider,
+  GoogleAuthProvider,
   signInWithPopup,
+  signInWithCredential,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
