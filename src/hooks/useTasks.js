@@ -61,6 +61,7 @@ export function useTasks() {
         createdAt: serverTimestamp(),
         dueDate: taskData.dueDate ? Timestamp.fromDate(new Date(taskData.dueDate)) : null,
         reminder: taskData.reminder ? Timestamp.fromDate(new Date(taskData.reminder)) : null,
+        reminderSent: false,
         recurring: taskData.recurring || 'none',
       })
     } catch (err) {
@@ -80,6 +81,7 @@ export function useTasks() {
       }
       if (data.reminder) {
         data.reminder = Timestamp.fromDate(new Date(data.reminder))
+        data.reminderSent = false
       } else if (data.reminder === null) {
         data.reminder = null
       }

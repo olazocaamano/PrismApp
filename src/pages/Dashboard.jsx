@@ -4,6 +4,7 @@ import { format, isToday, isPast, addDays, startOfWeek, endOfWeek, isWithinInter
 import { es, enUS, pt } from 'date-fns/locale'
 import { useAuth } from '../context/AuthContext'
 import { useTasks } from '../hooks/useTasks'
+import { useReminders } from '../hooks/useReminders'
 import TaskCard from '../components/TaskCard'
 import TaskModal from '../components/TaskModal'
 import { PlusIcon, AlertIcon } from '../components/Icons'
@@ -14,6 +15,7 @@ export default function Dashboard() {
   const { t, i18n } = useTranslation()
   const { user } = useAuth()
   const { tasks, loading, addTask, updateTask, deleteTask, toggleComplete } = useTasks()
+  useReminders(tasks)
   const [modalOpen, setModalOpen] = useState(false)
   const [editingTask, setEditingTask] = useState(null)
 
