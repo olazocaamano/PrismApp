@@ -1,54 +1,31 @@
 import { useEffect, useRef } from 'react'
-import { db, updateDoc, doc } from '../lib/firebase'
-import { useAuth } from '../context/AuthContext'
-import { sendReminderEmail } from '../lib/emailjs'
-import { useTranslation } from 'react-i18next'
+import { requestNotifPermissions, scheduleReminder, cancelReminder } from '../lib/notifications'
 
 export function useReminders(tasks) {
-  const { user } = useAuth()
-  const { t } = useTranslation()
-  const intervalRef = useRef(null)
+  const scheduled = useRef(new Set())
 
   useEffect(() => {
-    if (!user || !tasks || tasks.length === 0) return
+    if (!tasks || tasks.length === 0) return
 
-    const checkReminders = async () => {
-      const now = Date.now()
+    requestNotifPermissions()
 
-      for (const task of tasks) {
-        if (
-          !task.reminder ||
-          task.reminderSent ||
-          task.completed
-        ) continue
+    const now = Date.now()
 
-        const reminderTime = task.reminder?.toDate?.()?.getTime()
-        if (!reminderTime || reminderTime > now) continue
+    for (const task of tasks) {
+      if (scheduled.current.has(task.id)) continue
+      if (!task.reminder || task.reminderSent || task.completed) continue
 
-        const ok = await sendReminderEmail({
-          task,
-          userEmail: user.email,
-          userName: user.displayName,
-          t,
-        })
+      const at = task.reminder?.toDate?.()
+      if (!at || at.getTime() <= now) continue
 
-        if (ok) {
-          try {
-            await updateDoc(doc(db, 'users', user.uid, 'tasks', task.id), {
-              reminderSent: true,
-            })
-          } catch (err) {
-            console.warn('Error al marcar recordatorio enviado:', err)
-          }
-        }
-      }
+      scheduleReminder(task)
+      scheduled.current.add(task.id)
     }
+  }, [tasks])
 
-    checkReminders()
-    intervalRef.current = setInterval(checkReminders, 60_000)
-
+  useEffect(() => {
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current)
+      scheduled.current.clear()
     }
-  }, [user, tasks])
+  }, [])
 }
