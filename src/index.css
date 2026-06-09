@@ -1,0 +1,303 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.fc {
+  max-width: 100%;
+  font-size: 0.8rem;
+  --fc-page-bg-color: transparent;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 1rem;
+  padding: 0 0.25rem;
+}
+
+.fc .fc-toolbar-title {
+  font-size: 1rem !important;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #1e293b;
+}
+
+.fc .fc-button {
+  font-size: 0.75rem !important;
+  padding: 0.35rem 0.75rem !important;
+  border-radius: 0.5rem !important;
+  border: none !important;
+  font-weight: 500 !important;
+  transition: all 0.15s ease;
+}
+
+.fc .fc-button-primary {
+  background-color: #6366f1 !important;
+}
+
+.fc .fc-button-primary:hover {
+  background-color: #4f46e5 !important;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+  background-color: #4338ca !important;
+}
+
+.fc .fc-button-primary:disabled {
+  opacity: 0.5;
+}
+
+.fc .fc-today-button {
+  background-color: #eef2ff !important;
+  color: #4f46e5 !important;
+  font-weight: 600 !important;
+}
+
+.fc .fc-today-button:hover {
+  background-color: #e0e7ff !important;
+}
+
+.fc .fc-today-button:disabled {
+  opacity: 0.5;
+}
+
+.fc .fc-col-header-cell-cushion {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.6rem 0 !important;
+  text-decoration: none !important;
+}
+
+.fc .fc-daygrid-day-number {
+  font-size: 0.9rem;
+  padding: 0.35rem 0.5rem 0 !important;
+  color: #475569;
+  font-weight: 500;
+  text-decoration: none !important;
+  line-height: 1;
+}
+
+.fc .fc-daygrid-day-top {
+  flex-direction: row-reverse;
+  margin-bottom: 0.15rem;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+  background: transparent !important;
+}
+
+.fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+  background: #6366f1;
+  color: #fff;
+  border-radius: 999px;
+  width: 1.8rem;
+  height: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  margin: 0.3rem 0.3rem 0 0;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.fc .fc-daygrid-day.fc-day-other .fc-daygrid-day-number {
+  color: #cbd5e1;
+}
+
+.fc .fc-daygrid-more-link {
+  color: #6366f1 !important;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0 0.35rem;
+  text-decoration: none !important;
+}
+
+.fc .fc-daygrid-day-events {
+  min-height: auto !important;
+  padding: 0 0.25rem;
+}
+
+.fc .fc-daygrid-event {
+  border-radius: 0.2rem !important;
+  padding: 0.1rem 0.3rem !important;
+  font-size: 0.6rem;
+  margin: 0.08rem 0 !important;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: transparent !important;
+  border: none !important;
+  position: relative;
+  padding-left: 0.7rem !important;
+}
+
+.fc .fc-daygrid-event::before {
+  content: '';
+  position: absolute;
+  left: 0.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.fc .fc-daygrid-event.fc-event-completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.fc .fc-daygrid-event-dot {
+  display: none !important;
+}
+
+.fc .fc-event-title {
+  font-weight: 500;
+  padding: 0;
+}
+
+.fc .fc-daygrid-day-frame {
+  min-height: 4.5rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.fc .fc-daygrid-day-frame:hover {
+  background: rgba(99, 102, 241, 0.03);
+}
+
+.fc .fc-scrollgrid {
+  border: none !important;
+}
+
+.fc .fc-scrollgrid-section > td {
+  border: none !important;
+}
+
+.fc .fc-scrollgrid-section-header > td {
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.fc .fc-daygrid-body tr > td {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.fc .fc-daygrid-body tr:last-child > td {
+  border-bottom: none;
+}
+
+.fc .fc-daygrid-body tr > td:not(:last-child) {
+  border-right: 1px solid #f8fafc;
+}
+
+.fc .fc-popover {
+  border-radius: 0.75rem !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.fc .fc-popover-header {
+  background: #f8fafc !important;
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.fc .fc-popover-close {
+  font-size: 1rem;
+  opacity: 0.5;
+}
+
+.fc .fc-popover-body .fc-daygrid-event {
+  margin: 0.2rem 0.5rem !important;
+  padding: 0.25rem 0.5rem !important;
+  font-size: 0.7rem;
+}
+
+.dark .fc .fc-toolbar-title {
+  color: #f1f5f9;
+}
+
+.dark .fc .fc-button-primary {
+  background-color: #6366f1 !important;
+}
+
+.dark .fc .fc-button-primary:hover {
+  background-color: #818cf8 !important;
+}
+
+.dark .fc .fc-button-primary:not(:disabled).fc-button-active {
+  background-color: #818cf8 !important;
+}
+
+.dark .fc .fc-today-button {
+  background-color: rgba(99, 102, 241, 0.2) !important;
+  color: #a5b4fc !important;
+}
+
+.dark .fc .fc-today-button:hover {
+  background-color: rgba(99, 102, 241, 0.3) !important;
+}
+
+.dark .fc .fc-col-header-cell-cushion {
+  color: #64748b;
+}
+
+.dark .fc .fc-daygrid-day-number {
+  color: #94a3b8;
+}
+
+.dark .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+  background: #818cf8;
+  color: #0f172a;
+}
+
+.dark .fc .fc-daygrid-day.fc-day-other .fc-daygrid-day-number {
+  color: #334155;
+}
+
+.dark .fc .fc-daygrid-day-frame:hover {
+  background: rgba(99, 102, 241, 0.06);
+}
+
+.dark .fc .fc-scrollgrid-section-header > td {
+  border-bottom-color: #334155 !important;
+}
+
+.dark .fc .fc-daygrid-body tr > td {
+  border-bottom-color: #1e293b;
+}
+
+.dark .fc .fc-daygrid-body tr > td:not(:last-child) {
+  border-right-color: #1e293b;
+}
+
+.dark .fc .fc-popover {
+  border-color: #334155 !important;
+  background: #1e293b;
+}
+
+.dark .fc .fc-popover-header {
+  background: #1e293b !important;
+  border-bottom-color: #334155 !important;
+  color: #f1f5f9;
+}
