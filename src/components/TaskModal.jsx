@@ -48,12 +48,19 @@ export default function TaskModal({ isOpen, onClose, onSave, task }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!form.title.trim()) return
+
+    let reminder = null
+    if (form.reminder && form.dueDate) {
+      const due = new Date(form.dueDate + 'T23:59:00')
+      reminder = new Date(due.getTime() - form.reminderMinutes * 60 * 1000).toISOString()
+    }
+
     onSave({
       ...form,
       title: form.title.trim(),
       description: form.description.trim(),
       dueDate: form.dueDate || null,
-      reminder: form.reminder || null,
+      reminder,
     })
     onClose()
   }
@@ -163,6 +170,33 @@ export default function TaskModal({ isOpen, onClose, onSave, task }) {
               </select>
             </div>
           </div>
+
+          {form.dueDate && (
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/30">
+              <input
+                type="checkbox"
+                id="reminderToggle"
+                checked={form.reminder !== null}
+                onChange={(e) => setForm({ ...form, reminder: e.target.checked ? 'email' : null })}
+                className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+              />
+              <label htmlFor="reminderToggle" className="flex-1 text-xs text-slate-600 dark:text-slate-300 cursor-pointer">
+                {t('sendReminder')}
+              </label>
+              {form.reminder && (
+                <select
+                  value={form.reminderMinutes}
+                  onChange={(e) => setForm({ ...form, reminderMinutes: Number(e.target.value) })}
+                  className="text-xs px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 focus:outline-none"
+                >
+                  <option value={30}>30 min</option>
+                  <option value={60}>1 hora</option>
+                  <option value={120}>2 horas</option>
+                  <option value={1440}>1 día</option>
+                </select>
+              )}
+            </div>
+          )}
 
           <div>
             <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">{t('subtasks')}</label>

@@ -60,7 +60,7 @@ export function useTasks() {
         subtasks: taskData.subtasks || [],
         createdAt: serverTimestamp(),
         dueDate: taskData.dueDate ? Timestamp.fromDate(new Date(taskData.dueDate)) : null,
-        reminder: taskData.reminder || null,
+        reminder: taskData.reminder ? Timestamp.fromDate(new Date(taskData.reminder)) : null,
         recurring: taskData.recurring || 'none',
       })
     } catch (err) {
@@ -77,6 +77,11 @@ export function useTasks() {
         data.dueDate = Timestamp.fromDate(new Date(data.dueDate))
       } else if (data.dueDate === null) {
         data.dueDate = null
+      }
+      if (data.reminder) {
+        data.reminder = Timestamp.fromDate(new Date(data.reminder))
+      } else if (data.reminder === null) {
+        data.reminder = null
       }
       await updateDoc(taskRef, data)
     } catch (err) {
